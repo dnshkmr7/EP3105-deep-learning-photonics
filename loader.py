@@ -19,17 +19,17 @@ class SpectrumDataset(Dataset):
         return self.parameters[idx], self.wavelengths[idx], self.spectra[idx]
 
 def load_data(file_index):
-    parameters = pd.read_csv(f'/kaggle/input/split-continuum/parameters_split_{file_index}.csv').values
-    wavelengths = pd.read_csv(f'/kaggle/input/split-continuum/wavelength_split_{file_index}.csv').values
-    spectra = pd.read_csv(f'/kaggle/input/split-continuum/spectra_split_{file_index}.csv').values
+    parameters = pd.read_csv(f'/parameters_split_{file_index}.csv').values
+    wavelengths = pd.read_csv(f'/wavelength_split_{file_index}.csv').values
+    spectra = pd.read_csv(f'/spectra_split_{file_index}.csv').values
     
     params_scaler, wave_scaler, spectra_scaler = StandardScaler(), StandardScaler(), StandardScaler()
     
     train_params, test_params, train_waves, test_waves, train_spectra, test_spectra = train_test_split(
-        parameters, wavelengths, spectra, test_size=0.1, random_state=11011)
+        parameters, wavelengths, spectra, test_size = 0.1, random_state = 11011)
     
     train_params, val_params, train_waves, val_waves, train_spectra, val_spectra = train_test_split(
-        train_params, train_waves, train_spectra, test_size=0.15, random_state=11011)
+        train_params, train_waves, train_spectra, test_size = 0.15, random_state = 11011)
     
     # Scale the data
     train_params = params_scaler.fit_transform(train_params)
